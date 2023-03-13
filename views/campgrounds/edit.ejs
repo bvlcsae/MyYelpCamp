@@ -11,17 +11,33 @@
     <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST">
       <div>
         <label for="title">Title</label>
-        <input type="text" id="title" name="campground[title]" value="<%=campground.title%>"/>
+        <input
+          type="text"
+          id="title"
+          name="campground[title]"
+          value="<%=campground.title%>"
+        />
       </div>
 
       <div>
         <label for="location">Location</label>
-        <input type="text" id="location" name="campground[location]" value="<%=campground.location%>"/>
+        <input
+          type="text"
+          id="location"
+          name="campground[location]"
+          value="<%=campground.location%>"
+        />
       </div>
 
       <button>Edit Campground</button>
     </form>
     <footer>
+      <form
+        action="/campgrounds/<%=campground._id %>?_method=DELETE"
+        method="POST"
+      >
+        <button>delete</button>
+      </form>
       <a href="/campgrounds">Back to Campgrounds</a>
     </footer>
   </body>
