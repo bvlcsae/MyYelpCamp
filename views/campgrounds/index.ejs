@@ -8,9 +8,15 @@
   </head>
   <body>
     <h1>All Campgrounds</h1>
+    <div>
+      <a href="/new">Add Campground</a>
+    </div>
     <ul>
       <% for (let camground of campgrounds) { %>
-      <li><a href="/campgrounds/<%= camground._id %>"><%= camground.title %></a></li>
+      <li>
+        <a href="/campgrounds/<%= camground._id %>"><%= camground.title %></a>
+        <a href="/campgrounds/<%= camground._id %>/edit">edit</a>
+      </li>
       <% } %>
     </ul>
   </body>
