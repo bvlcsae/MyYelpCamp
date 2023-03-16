@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const Campground = require("./models/campground");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
-const ejsMate = require('ejs-mate')
+const ejsMate = require("ejs-mate");
+const AppError = require("./AppError");
 
 mongoose.connect("mongodb://localhost:27017/yelp-camp", {
   useNewUrlParser: true,
@@ -19,7 +20,7 @@ db.once("open", () => {
 });
 
 const app = express();
-app.engine('ejs', ejsMate)
+app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
@@ -76,18 +77,29 @@ const verifyPassword = (req, res, next) => {
     next();
     return;
   }
-  res.send("SORRY YOU NEED A PASSWORD!!!");
+  throw new AppError("SORRY YOU NEED A PASSWORD!!!", 401);
 };
 
 app.get("/dogs", (req, res) => {
   console.log(`REQUEST TIME: ${req.requestTime}`);
-  res.send("WOOF WOOF!");
+  res.send("WOOF");
+});
+
+app.get("/error", (req, res) => {
+  aaa.eat()
 });
 
 app.get("/secret", verifyPassword, (req, res) => {
   res.status(200).send("MY SECRET IS: Some xxxxxx");
 });
 
+// ERROR HANDLER
+app.use((err, req, res, next) => {
+  const { status = 500, message = 'error message' } = err;
+  res.status(status).send(message);
+});
+
+// 404
 app.use((req, res) => {
   res.status(404).send("NOT FOUND!");
 });
