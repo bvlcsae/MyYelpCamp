@@ -37,8 +37,11 @@ app.get("/campgrounds", async (req, res) => {
   res.render("campgrounds/index", { campgrounds });
 });
 
-app.get("/campgrounds/:id", async (req, res) => {
+app.get("/campgrounds/:id", async (req, res, next) => {
   const campground = await Campground.findById(req.params.id);
+  if (!campground) {
+    return next(new AppError("Campground Not Found", 404));
+  }
   res.render("campgrounds/show", { campground });
 });
 
@@ -86,7 +89,7 @@ app.get("/dogs", (req, res) => {
 });
 
 app.get("/error", (req, res) => {
-  aaa.eat()
+  aaa.eat();
 });
 
 app.get("/secret", verifyPassword, (req, res) => {
@@ -95,7 +98,7 @@ app.get("/secret", verifyPassword, (req, res) => {
 
 // ERROR HANDLER
 app.use((err, req, res, next) => {
-  const { status = 500, message = 'error message' } = err;
+  const { status = 500, message = "error message" } = err;
   res.status(status).send(message);
 });
 
