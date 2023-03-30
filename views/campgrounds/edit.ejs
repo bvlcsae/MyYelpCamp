@@ -10,7 +10,8 @@
           type="text"
           id="title"
           name="campground[title]"
-          value="<%=campground.title%>"
+          value="<%=campground.title%> "
+          required
         />
       </div>
 
@@ -22,6 +23,7 @@
           id="location"
           name="campground[location]"
           value="<%=campground.location%>"
+          required
         />
       </div>
 
@@ -33,6 +35,7 @@
           id="image"
           name="campground[image]"
           value="<%=campground.image%>"
+          required
         />
       </div>
 
@@ -48,6 +51,7 @@
             name="campground[price]"
             aria-describedby="price-label"
             value="<%=campground.price%>"
+            required
           />
         </div>
       </div>
@@ -59,6 +63,7 @@
           type="text"
           id="description"
           name="campground[description]"
+          required
         >
 <%=campground.description%>
         </textarea>
